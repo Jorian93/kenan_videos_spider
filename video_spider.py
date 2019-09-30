@@ -6,6 +6,8 @@ import datetime
 import os
 import requests
 import utils
+import msvcrt
+
 
 # 目标网站
 # 定义一个类，爬虫类,self当前类
@@ -47,8 +49,8 @@ class VideoSpider():
                 ('Host', 'media2.fcw67.com'),
             ]
             request.install_opener(opener)
-            req_url = request.Request(video_url + str(i + 5100))
-            print('req_url:' + video_url + str(i + 5100))
+            req_url = request.Request(video_url + '/' + str(i))
+            print('req_url:' + video_url + '/' + str(i))
             try:
                 with request.urlopen(req_url, timeout=10) as f:
                     print('Status:', f.status, f.reason)
@@ -134,3 +136,7 @@ if __name__ == "__main__":
     video_lists1 = [
         'https://media2.fcw67.com/remote_control.php?time=1569646161&cv=f93e21b7d053789724c640cfd04eae54&lr=0&cv2=f680e9fdb1790f2f0424a9766cf11a6e&file=%2Fvideos%2F9000%2F9782%2F9782.mp4']
     spider.download_video(video_lists)
+    print("Press 'D' to exit...")
+    while True:
+        if ord(msvcrt.getch()) in [68, 100]:
+            break
